@@ -5,6 +5,7 @@ import {CommonhttpServices} from '../lib/commonhttp.services';
 import {Subject} from 'rxjs/Subject';
 import {MusicRecordsService} from './music-record.service';
 import {DataTableDirective} from 'angular-datatables';
+import {CustomType} from '../lib/custom-type';
 
 declare var jQuery: any;
 
@@ -25,15 +26,36 @@ export class MusicRecordComponent implements OnInit {
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
-  records: MusicRecord[] = [];
-  private userEmail: string;
-  private musicRecord: MusicRecord;
+  userEmail: string;
+  musicRecord: MusicRecord = new MusicRecord();
 
   constructor(private router: Router, private loginRegistrationService: LoginRegistrationService,
               private commonHttpServices: CommonhttpServices, private musicRecordService: MusicRecordsService) {
   }
 
   ngOnInit() {
+    this.dtOptions = {
+      columns: [{
+        title: 'Title',
+        data: 'title'
+      }, {
+        title: 'Artist',
+        data: 'artist'
+      }, {
+        title: 'Description',
+        data: 'description'
+      }],
+      rowCallback: (row: Node, data: any[] | Object, index: number) => {
+        const self = this;
+        // Unbind first in order to avoid any duplicate handler
+        // (see https://github.com/l-lin/angular-datatables/issues/87)
+        $('td', row).unbind('click');
+        $('td', row).bind('click', () => {
+          this.toggleEdit(data as MusicRecord);
+        });
+        return row;
+      }
+    };
     let body = document.getElementsByTagName('body')[0];
     body.classList.remove('splash');
     this.userEmail = localStorage.getItem('userEmail');
@@ -42,8 +64,8 @@ export class MusicRecordComponent implements OnInit {
 
   loadRecords(): void {
     this.musicRecordService.getAllRecords().subscribe(response => {
-        this.records = response;
-        this.dtTrigger.next();
+      this.dtOptions.data = response;
+      this.dtTrigger.next();
       }
     );
   }
@@ -55,11 +77,11 @@ export class MusicRecordComponent implements OnInit {
 
   addMusicRecord(): void {
     this.musicRecordService.addMusicRecord(this.musicRecord).subscribe(response => {
+      this.musicRecord = response;
       jQuery('#addMusicRecord').modal('hide');
-      this.records.push(response);
-      this.reRender();
-      this.resetMusicRecord();
-      this.loadRecords();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.row.add(this.musicRecord).draw();
+      });
     });
   }
 
@@ -71,19 +93,7 @@ export class MusicRecordComponent implements OnInit {
   updateMusicRecord(): void {
     this.musicRecordService.updateMusicRecord(this.musicRecord).subscribe(response => {
       jQuery('#editMusicRecord').modal('hide');
-      this.loadRecords();
-      this.reRender();
-      this.resetMusicRecord();
     });
-  }
-
-  deleteMusicRecord(id: any) {
-    console.log(id);
-    this.commonHttpServices.AuthDelete(this.urlAddMusicRecord, id).subscribe(response => {
-        console.log(response);
-        this.getMusicRecords();
-      }
-    );
   }
 
   reRender(): void {

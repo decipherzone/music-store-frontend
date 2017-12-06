@@ -55,19 +55,10 @@
                   <th>Title</th>
                   <th>Artist</th>
                   <th>Description</th>
-                  <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let record of records">
-                  <td>{{ record.title }}</td>
-                  <td>{{ record.artist }}</td>
-                  <td>{{ record.description }}</td>
-                  <td>
-                    <button type="button" (click)="toggleEdit(record)" class="btn btn-warning"><i class="fa fa-pencil"></i></button>
-                    <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                  </td>
-                </tr>
+
                 </tbody>
               </table>
             </div>
@@ -168,7 +159,7 @@
 
 
 
-<div class="modal fade hide" id="editMusicRecord" tabindex="-1" role="dialog">
+<div class="modal fade" id="editMusicRecord" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -223,6 +214,7 @@
 
         </div>
         <div class="modal-footer">
+          <button type="button" class="btn btn-danger pull-left">Delete</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <button [disabled]="!editRecordData.form.valid" type="submit" class="btn btn-primary">Submit</button>
         </div>
