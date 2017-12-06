@@ -28,6 +28,7 @@ export class MusicRecordComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject();
   userEmail: string;
   musicRecord: MusicRecord = new MusicRecord();
+  clickedRowIndex: number;
 
   constructor(private router: Router, private loginRegistrationService: LoginRegistrationService,
               private commonHttpServices: CommonhttpServices, private musicRecordService: MusicRecordsService) {
@@ -51,6 +52,7 @@ export class MusicRecordComponent implements OnInit {
         // (see https://github.com/l-lin/angular-datatables/issues/87)
         $('td', row).unbind('click');
         $('td', row).bind('click', () => {
+          this.clickedRowIndex = index;
           this.toggleEdit(data as MusicRecord);
         });
         return row;
@@ -92,6 +94,9 @@ export class MusicRecordComponent implements OnInit {
 
   updateMusicRecord(): void {
     this.musicRecordService.updateMusicRecord(this.musicRecord).subscribe(response => {
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.row(this.clickedRowIndex).data(response).draw();
+      });
       jQuery('#editMusicRecord').modal('hide');
     });
   }
