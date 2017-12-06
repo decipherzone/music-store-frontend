@@ -96,11 +96,11 @@ body{
 /*========================
         DATATABLES
 ========================== */
-#searchMusicRecordsDt_filter label input{
+.dataTables_filter label input{
   border: 1px solid #bbbbbb;
   background-color: #eee;
 }
-#searchMusicRecordsDt_length label select{
+.dataTables_length label select{
   border: 1px solid #bbbbbb;
   background-color: #eee;
 }
@@ -120,3 +120,20 @@ table.dataTable.no-footer{
 #searchMusicRecordsDt_info{
   display: none;
 }
+.dataTables_wrapper .dataTables_paginate .paginate_button:active {
+  outline: none;
+  background-color: #5bc0de!important;
+  background: linear-gradient(to bottom, #5bc0de 0%, #5bc0de 100%)!important;
+  box-shadow: inset 0 0 3px #111!important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  color: white !important;
+  border: 1px solid #5bc0de!important;
+  background-color: #5bc0de!important;
+  background: linear-gradient(to bottom, #5bc0de 0%, #5bc0de 100%)!important;
+}
+
+
+
+
+

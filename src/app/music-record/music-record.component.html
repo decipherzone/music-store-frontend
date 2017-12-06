@@ -214,7 +214,7 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger pull-left">Delete</button>
+          <button type="button" (click)="deleteMusicRecord()" class="btn btn-danger pull-left">Delete</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <button [disabled]="!editRecordData.form.valid" type="submit" class="btn btn-primary">Submit</button>
         </div>

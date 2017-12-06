@@ -29,4 +29,8 @@ export class MusicRecordsService {
     return this.commonHttpServices.postJSON(this.urlMusic, musicRecord);
   }
 
+  public deleteMusicRecord(musicRecord: MusicRecord): Observable<any> {
+    return this.commonHttpServices.authDelete(this.urlMusic, musicRecord.id);
+  }
+
 }

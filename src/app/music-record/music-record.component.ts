@@ -101,6 +101,14 @@ export class MusicRecordComponent implements OnInit {
     });
   }
 
+  deleteMusicRecord() {
+    console.log(this.musicRecord.id);
+    this.musicRecordService.deleteMusicRecord(this.musicRecord).subscribe(response => {
+        this.resetMusicRecord();
+      }
+    );
+  }
+
   reRender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first
