@@ -25,10 +25,10 @@ export class RegisterUser {
 })
 
 export class LoginFormComponent implements OnInit {
-  private showLogin: boolean = true;
+  showLogin: boolean = true;
   /** Define user */
-  private loginUser: LoginUser;
-  private registerUser: RegisterUser;
+  loginUser: LoginUser;
+  registerUser: RegisterUser;
 
   constructor(private router: Router, private http: Http, private commonhttpServices: CommonhttpServices,
               private formBuilder: FormBuilder, private route: ActivatedRoute,
