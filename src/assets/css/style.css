@@ -1,0 +1,122 @@
+
+body{
+    font-family: 'Open Sans';
+}
+
+.splash{
+    background-color: #5bc0de;
+    /*background-image: url("../../assets/images/bg_01.png");*/
+    background-attachment: fixed;
+    background-position: center center;
+    background-size: cover;
+}
+.navbar-form.search {
+    width: 67%;
+}
+
+.search .form-control {
+    width: 100%;
+}
+
+.search-form {
+    background-color: #5bc0de;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+.login-section{
+    margin-top: 5%;
+}
+.category ul li{
+    margin-bottom: 3%;
+    width: 100%;
+    float: left;
+}
+.category ul li a{
+    font-size: 14px;
+    font-weight: 500;
+}
+.category ul li:last-child a{
+    font-weight: bold;
+    text-decoration: underline;
+}
+.music-record table > thead{
+    font-weight: 600;
+}
+/*========================
+         SPACE
+========================== */
+.m-t-3{
+    margin-top: 3%;
+}
+.m-t-5{
+    margin-top: 5%;
+}
+.m-t-0{
+  margin-top: 0px;
+}
+.m-b-0{
+  margin-bottom: 0px;
+}
+.m-l-0{
+  margin-left: 0px;
+}
+.m-r-0{
+  margin-right: 0px;
+}
+.p-l-0{
+  padding-left: 0px;
+}
+.p-r-0{
+  padding-right: 0px;
+}
+/*========================
+        TEXT COLOR
+========================== */
+.text-white{
+    color: #ffffff;
+}
+/*========================
+        ANGULAR CODE
+========================== */
+.form-control.ng-touched.ng-invalid{
+  border: 1px solid red;
+}
+.ng-valid[required], .ng-valid.required{
+  border: 1px solid green;
+}
+.has-error{
+  position: absolute;
+  left: 60px;
+}
+/*.ng-invalid:not(form) {
+  border-left: 5px solid red;
+}*/
+/*========================
+        DATATABLES
+========================== */
+#searchMusicRecordsDt_filter label input{
+  border: 1px solid #bbbbbb;
+  background-color: #eee;
+}
+#searchMusicRecordsDt_length label select{
+  border: 1px solid #bbbbbb;
+  background-color: #eee;
+}
+table.dataTable thead th, table.dataTable thead td{
+  border-bottom: 1px solid #bbbbbb !important;
+}
+table.dataTable.no-footer{
+  border-bottom: 1px solid #bbbbbb !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover{
+  z-index: 3 !important;
+  color: #fff !important;
+  background: #D9EDF7 !important;
+  border: 1px solid #337ab7 !important;
+}
+#searchMusicRecordsDt_info{
+  display: none;
+}

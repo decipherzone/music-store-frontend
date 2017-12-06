@@ -1,0 +1,9 @@
+
+@media screen and (max-width: 699px) and (min-width: 520px) {
+
+}
+@media screen and (max-width: 519px) and (min-width: 320px) {
+    .login-section{
+        margin-top: 15%;
+    }
+}

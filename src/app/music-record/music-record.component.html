@@ -1,0 +1,233 @@
+<!-- =========================
+     NAVIGATION LINKS
+============================== -->
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+              data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Music Record Store</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+               aria-expanded="false">
+          <i class="fa fa-user-circle-o"></i> {{userEmail}} <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="javascript:;" (click)="logout()">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+<section>
+  <div class="container">
+    <div class="row">
+
+      <article>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 15px">
+            <div class="col-lg-12 col-md-12 col-xs-12 pull-left search-form">
+              <div class="pull-right col-lg-3 col-md-3 col-xs-3 search-form" style="border-left: 1px solid #eee">
+                <label class="text-white" style="margin-bottom: 0px"> Add music record
+                  <button type="button" class="btn btn-default" (click)="toggleAdd()"><i
+                    class="fa fa-plus"></i></button>
+                </label>
+              </div>
+            </div>
+          </div><!-- /.col-12 -->
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="table-responsive music-record">
+              <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+                <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Artist</th>
+                  <th>Description</th>
+                  <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let record of records">
+                  <td>{{ record.title }}</td>
+                  <td>{{ record.artist }}</td>
+                  <td>{{ record.description }}</td>
+                  <td>
+                    <button type="button" (click)="toggleEdit(record)" class="btn btn-warning"><i class="fa fa-pencil"></i></button>
+                    <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div><!-- /.col-4 -->
+      </article>
+    </div>
+  </div>
+</section>
+
+
+<div class="modal fade" id="addMusicRecord" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+          aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="musicRecordModalLabel">Music Record</h4>
+      </div>
+      <form #insertRecordData="ngForm" (ngSubmit)="addMusicRecord()">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="atitle" class="control-label">Music Title</label>
+            <input
+              required
+              [(ngModel)]="musicRecord.title"
+              name="atitle"
+              #atitle="ngModel"
+              pattern="[A-Za-z0-9 _]*[A-Za-z]+[A-Za-z0-9 _]*$"
+              type="text"
+              class="form-control"
+              id="atitle"
+              placeholder="Title">
+          </div>
+          <div class="text-danger"
+               *ngIf="(atitle.dirty || atitle.touched) && !atitle.valid">
+            <div *ngIf="atitle.errors.required">
+              Title is required
+            </div>
+            <div *ngIf="atitle.errors.pattern">
+              Not a valid text
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="aartist" class="control-label">Artist Name</label>
+            <input
+              required
+              [(ngModel)]="musicRecord.artist"
+              name="aartist"
+              #aartist="ngModel"
+              pattern="[A-Za-z0-9 _]*[A-Za-z]+[A-Za-z0-9 _]*$"
+              type="text"
+              class="form-control"
+              id="aartist"
+              placeholder="Artist Name">
+          </div>
+          <div class="text-danger"
+               *ngIf="(aartist.dirty || aartist.touched) && !aartist.valid">
+            <div *ngIf="aartist.errors.required">
+              Artist is required
+            </div>
+            <div *ngIf="aartist.errors.pattern">
+              Not a valid text
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="adescription" class="control-label">Description</label>
+            <input
+              required
+              [(ngModel)]="musicRecord.description"
+              name="adescription"
+              #adescription="ngModel"
+              pattern="[A-Za-z0-9 _]*[A-Za-z]+[A-Za-z0-9 _]*$"
+              type="text"
+              class="form-control"
+              id="adescription"
+              placeholder="Description">
+          </div>
+          <div class="text-danger"
+               *ngIf="(adescription.dirty || adescription.touched) && !adescription.valid">
+            <div *ngIf="adescription.errors.required">
+              Name is required
+            </div>
+            <div *ngIf="adescription.errors.pattern">
+              Not a valid text
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button [disabled]="!insertRecordData.form.valid" type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+
+
+<div class="modal fade hide" id="editMusicRecord" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+          aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Edit Music Record</h4>
+      </div>
+      <form #editRecordData="ngForm" (ngSubmit)="updateMusicRecord()">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="etitle" class="control-label">Music Title</label>
+            <input
+              required
+              [(ngModel)]="musicRecord.title"
+              name="etitle"
+              #title="ngModel"
+              type="text"
+              class="form-control"
+              id="etitle"
+              placeholder="Title">
+          </div>
+          <div class="text-danger"
+               *ngIf="(title.dirty || title.touched) && !title.valid">
+            <div *ngIf="title.errors.required">
+              required
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="eartist" class="control-label">Artist Name</label>
+            <input
+              required
+              [(ngModel)]="musicRecord.artist"
+              name="eartist"
+              #artist="ngModel"
+              type="text"
+              class="form-control"
+              id="eartist"
+              placeholder="Artist Name">
+          </div>
+          <div class="form-group">
+            <label for="edescription" class="control-label">Description</label>
+            <input
+              required
+              [(ngModel)]="musicRecord.description"
+              name="edescription"
+              #description="ngModel"
+              type="text"
+              class="form-control"
+              id="edescription"
+              placeholder="Description">
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button [disabled]="!editRecordData.form.valid" type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
