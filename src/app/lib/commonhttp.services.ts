@@ -29,9 +29,15 @@ export class CommonhttpServices {
     if (error instanceof Response) {
       const body = error.json() || '';
       const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+      errMsg = `${err}`;
     } else {
       errMsg = error.message ? error.message : error.toString();
+    }
+
+    try {
+      let responseError = JSON.parse(errMsg);
+      alert(responseError.message);
+    } catch (e) {
     }
     return Observable.throw(errMsg);
   }

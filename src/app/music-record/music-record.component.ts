@@ -66,8 +66,10 @@ export class MusicRecordComponent implements OnInit {
 
   loadRecords(): void {
     this.musicRecordService.getAllRecords().subscribe(response => {
-      this.dtOptions.data = response;
-      this.dtTrigger.next();
+        this.dtOptions.data = response;
+        this.dtTrigger.next();
+      }, error => {
+        this.router.navigate(['/']);
       }
     );
   }
@@ -84,6 +86,8 @@ export class MusicRecordComponent implements OnInit {
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.row.add(this.musicRecord).draw();
       });
+    }, error => {
+      this.router.navigate(['/']);
     });
   }
 
@@ -98,13 +102,18 @@ export class MusicRecordComponent implements OnInit {
         dtInstance.row(this.clickedRowIndex).data(response).draw();
       });
       jQuery('#editMusicRecord').modal('hide');
+    }, error => {
+      this.router.navigate(['/']);
     });
   }
 
   deleteMusicRecord() {
-    console.log(this.musicRecord.id);
     this.musicRecordService.deleteMusicRecord(this.musicRecord).subscribe(response => {
-        this.resetMusicRecord();
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.row(this.clickedRowIndex).remove();
+          dtInstance.rows().draw();
+        });
+        jQuery('#editMusicRecord').modal('hide');
       }
     );
   }
@@ -123,7 +132,7 @@ export class MusicRecordComponent implements OnInit {
   }
 
   private resetMusicRecord(): void {
-    this.musicRecord = null;
+    this.musicRecord = new MusicRecord();
   }
 
 }
