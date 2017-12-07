@@ -151,7 +151,7 @@ export class CommonhttpServices {
     let headers = new Headers();
 
     headers.append('Content-Type', 'application/json');
-    headers.append('Authorization', localStorage.getItem('access_token'));
+    headers.append('Authorization', sessionStorage.getItem('access_token'));
 
     return headers;
   }

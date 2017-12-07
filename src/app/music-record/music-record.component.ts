@@ -60,7 +60,7 @@ export class MusicRecordComponent implements OnInit {
     };
     let body = document.getElementsByTagName('body')[0];
     body.classList.remove('splash');
-    this.userEmail = localStorage.getItem('userEmail');
+    this.userEmail = sessionStorage.getItem('userEmail');
     this.loadRecords();
   }
 
@@ -69,6 +69,7 @@ export class MusicRecordComponent implements OnInit {
         this.dtOptions.data = response;
         this.dtTrigger.next();
       }, error => {
+      window.sessionStorage.clear();
         this.router.navigate(['/']);
       }
     );
@@ -87,6 +88,7 @@ export class MusicRecordComponent implements OnInit {
         dtInstance.row.add(this.musicRecord).draw();
       });
     }, error => {
+      window.sessionStorage.clear();
       this.router.navigate(['/']);
     });
   }
@@ -103,6 +105,7 @@ export class MusicRecordComponent implements OnInit {
       });
       jQuery('#editMusicRecord').modal('hide');
     }, error => {
+      window.sessionStorage.clear();
       this.router.navigate(['/']);
     });
   }

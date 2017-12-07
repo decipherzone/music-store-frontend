@@ -32,7 +32,7 @@ export class LoginRegistrationService {
 
   header = new Headers({
     'content-type': 'application/x-www-form-urlencoded',
-    'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+    'Authorization': 'Bearer ' + sessionStorage.getItem('access_token')
   });
 
   options = new RequestOptions({
@@ -92,14 +92,14 @@ export class LoginRegistrationService {
   }
 
   setIsLoggedIn(response: any) {
-    localStorage.setItem('isLoggedIn', 'true');
+    sessionStorage.setItem('isLoggedIn', 'true');
     console.log(response);
-    localStorage.setItem('userEmail', response.userDetails.email);
-    localStorage.setItem('access_token', response.tokenInfo.accessToken);
+    sessionStorage.setItem('userEmail', response.userDetails.email);
+    sessionStorage.setItem('access_token', response.tokenInfo.accessToken);
   }
 
   setIsLoggedOut() {
-    localStorage.clear();
+    sessionStorage.clear();
   }
 
   isLoggedIn() {

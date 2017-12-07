@@ -39,7 +39,7 @@ export class LoginFormComponent implements OnInit {
   ngOnInit() {
     this.loginUser = new LoginUser();
     this.registerUser = new RegisterUser();
-    if (localStorage.getItem('isLoggedIn') === 'true') {
+    if (sessionStorage.getItem('isLoggedIn') === 'true') {
       this.router.navigate(['/music-record']);
     }
     let body = document.getElementsByTagName('body')[0];
@@ -50,8 +50,6 @@ export class LoginFormComponent implements OnInit {
    * Performs the login functionality by using the available service method and acts accordingly
    */
   public login(): void {
-    console.log(this.loginUser.email);
-    console.log(this.loginUser.password);
     this.loginRegistrationService.getLoginCredential(this.loginUser.email, this.loginUser.password);
   }
 

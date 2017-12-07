@@ -1,4 +1,4 @@
 
 export class Constants {
-  public static readonly BASE_URL = 'http://192.168.0.156:7070/';
+  public static readonly BASE_URL = 'http://dev1.decipherzone.com:7070/';
 }
